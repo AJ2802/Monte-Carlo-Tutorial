@@ -186,7 +186,7 @@ if __name__ == "__main__":
                                       #if TYPE B target probability  and TYPE B or D proposed probability and perturbation are used, each value in the initial_config is integer.
                                       #if TYPE B target probability  and TYPE C or E proposed probability and perturbation are used, each value in the initial_config is any real number.
     iteration = 100000 #user can change iterations
-    eqm_itr = 90000    #user can change its value to start to collect states in the Markov Chain for simulation, 
+    eqm_itr = 50000    #user can change its value to start to collect states in the Markov Chain for simulation, 
                       #like computation of the mean of states and convariance matrix.
     display = 10      #user can change to show the last "display" number of states in the Markov Chain
     seed = 1314       #user can change the seed number
