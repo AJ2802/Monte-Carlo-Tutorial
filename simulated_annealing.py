@@ -19,7 +19,7 @@ class configuration():
             self.config = config
             self.length = len(config)
         elif isinstance(config, configuration) and len(config.config.shape)==1:
-            self.config = config
+            self.config = config.config
             self.length = len(config.config)
         else:
             return NotImplemented
@@ -73,12 +73,13 @@ def ratio_probability(current_energy, temp_energy, temperature):
     #   ratio_prob = ((current_energy+0.000001)/(temp_energy+0.000001))**2
     return ratio_prob
 
+#Running Simulated-Annealing Algorithm
 def run(initial_config, iteration, initial_temperature, seed, denom):
     np.random.seed(seed)
     configObj = configuration(initial_config)
     temperature =initial_temperature;
     optimal_point = np.random.uniform(low = -200, high = 201, size = configObj.length)
-    stable_const = 0.000000000001
+    #stable_const = 0.000000000001
     xValue=[i for i in range(iteration)];
     yValue=[]
     for itr in range(iteration):
