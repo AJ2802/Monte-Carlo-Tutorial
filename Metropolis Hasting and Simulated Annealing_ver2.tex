@@ -1,0 +1,315 @@
+%% LyX 2.1.2 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[oneside,reqno]{amsart}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\pagestyle{plain}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{amstext}
+\usepackage{amssymb}
+\usepackage{esint}
+\usepackage[numbers]{natbib}
+\usepackage[unicode=true,pdfusetitle,
+ bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
+ breaklinks=false,pdfborder={0 0 1},backref=section,colorlinks=false]
+ {hyperref}
+
+\makeatletter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+%2multibyte Version: 5.50.0.2960 CodePage: 1250
+%*********************************  Cut Here **********************************************
+%% Latex File
+%Title:  	
+%Bruce K. Driver						(619) 458-0544	(Home)	
+%University of CA, San Diego			(619) 534-2648 (Work)
+%Department of Mathematics				(619) 534-5273  (Fax)
+%9500 Gilman Drive, Dept. 0112			Email: driver@euclid.ucsd.edu
+%La Jolla, CA 92093-0112				http://math.ucsd.edu/~driver/
+% **********************************************************************************************
+%\usepackage[notcite]{showkeys}
+%\usepackage{graphicx}
+%\usepackage{amscd}
+%\usepackage{a4}
+%unnumbered theorem environments
+%\iffalse
+%\usepackage[notcite]{showkeys}
+%\usepackage{babel}
+%\usepackage{babel}
+
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+%\usepackage[notcite]{showkeys}
+\usepackage{amsthm}
+\usepackage{datetime}
+\usepackage{mathrsfs}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{comment}
+\usepackage{graphicx}\setcounter{MaxMatrixCols}{30}
+%TCIDATA{OutputFilter=latex2.dll}
+%TCIDATA{Version=5.50.0.2960}
+%TCIDATA{Codepage=1250}
+%TCIDATA{CSTFile=amsart.cst}
+%TCIDATA{Created=Wednesday, August 10, 2011 10:30:47}
+%TCIDATA{LastRevised=Tuesday, November 03, 2015 14:08:24}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=BibTeX}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Articles\SW\bruce_plain">}
+%TCIDATA{Language=American English}
+%BeginMSIPreambleData
+\providecommand{\U}[1]{\protect\rule{.1in}{.1in}}
+%EndMSIPreambleData
+
+
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\iffalse
+\oddsidemargin= -0.2in
+\evensidemargin= -0.2in
+\textheight= 9in
+\topmargin= -0.2in
+\textwidth= 6.9in
+\fi
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{convention}[theorem]{Convention}
+\newtheorem{mtheorem}[theorem]{Meta-Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{htheorem}[theorem]{Heuristic Theorem}
+\newtheorem{axiom}{Axiom}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\renewenvironment{proof}[1][Proof]{\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{comments}[theorem]{Comments}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{notations}[theorem]{Notations}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{remarks}[theorem]{Remarks}
+\newtheorem{fact}[theorem]{Fact}
+\theoremstyle{plain}
+\newtheorem{conjecture}[]{Conjecture}
+\newtheorem{claim}[]{Claim}
+\newtheorem{computation}[]{Computation}
+\theoremstyle{definition}
+\newtheorem{assumption}[]{Assumption}
+\newtheorem{exercise}{Exercise}[section]
+\numberwithin{equation}{section}
+\newcommand*{\bigchi}{\mbox{\Large$\chi$}}
+\excludecomment{comments}
+
+\makeatother
+
+\begin{document}
+
+\date{September 6, 2017}
+
+
+\title{Metropolis Hasting And Simulated Annealing}
+
+\maketitle
+\tableofcontents{}
+
+%\today\ \emph{File:\jobname{.tex}}
+
+%\setcounter{tocdepth}{1}
+
+\setcounter{section}{-1}
+
+%\newpage
+
+
+\section{Goal}
+
+This note is a draft of a brief introduction of Metropolis-Hasting
+Algorithm and stimulated annealing. Reader should read this note with
+caution. There are many references about these two topics, e.g. \citep{Geyer}
+and \citep{Lee}
+
+
+\section{Metropolis-Hasting Algorithm\label{sec.2}}
+
+It is well known that there is a curse of dimensionality when we sample
+states following a probability distributions $\pi$ in a high dimensional
+sample space of states $S$. Metropolis-Hasting is one of popular
+approaches to solve this issue. The main idea to make Metropolis-Hasting
+Algorithm work is to find a transition kernel density $p(x,y)$ on
+$S\times S$ such that the the Markov chain induced by the transition
+kernel density $p(x,y)$ has the limiting probability $\pi_{L}=\pi.$
+If we can find such a transition kernel density, then we can start
+the Markov chain with a random state $s_{0}$ and let the Markov chain
+proceed. Then, we can start to collect states induced by the Markov
+chain after sufficiently many iterations in the chain and the states
+we collected follow the limiting probability distribution $\pi_{L}=\pi.$
+
+The key to implement Metropolis-Hasting Algorithm successfully is
+to find another transition kernel density $q(\cdot,\cdot)$ on $S\times S$
+such that it follows the following properties: 
+\begin{enumerate}
+\item Given $x\in S,$it is easy to sample states from $q(x,\cdot).$ 
+\item Let $f$ be a density of a probability distribution $\pi$ with respect
+to a probability measure $\mu$ on $S$, i.e. $\pi(d\mu)=fd\mu$.
+For all $x\in S$, the support of $q(x,\cdot)$ contains the support
+of $f(\cdot)$, i.e. if $f(y)>0$, then $q(x,y)>0$. {[}Actually,
+we can weaken this condition in practice.{]} 
+\end{enumerate}
+States $\{X_{t}\}$ is denoted to be a Markov chain in the Metropolis-Hasting
+Algorithm. The following is Metropolis-Hasting Algorithm to samples
+states in $S$ following a probability distribution $\pi$: 
+\begin{enumerate}
+\item For $t=0$, pick an initial state $X_{0}=s_{0}\in S$ such that $f(s_{0})>0$
+and assign the last step $T$ to be a large positive number. 
+\item Generate a candidate $Y$ follows from the probability distribution
+$q(X_{t},\cdot)$ 
+\item Generate a random number $\beta$ following a uniform distribution
+between $0$ and $1$ 
+\item Update the state $X_{t+1}$as $\begin{cases}
+Y & \textrm{if }\alpha(X_{t},Y)>\beta\\
+X_{t} & \textrm{otherwise}
+\end{cases}$ where 
+\begin{equation}
+\alpha(x,y):=min\left\{ \frac{f(y)q\left(y,x\right)}{f(x)q\left(x,y\right)},1\right\} .\label{eq:2.2}
+\end{equation}
+
+\item $t\leftarrow t+1$ and go to Step 2 until $t>T.$ 
+\end{enumerate}
+Metropolis-Hasting Algorithm builds a Markov chain $\left\{ X_{t}\right\} $.
+Then we pick $T_{eqm}<T$ large enough such that all states generated
+after $T_{eqm}$ follow very closely to a probability distribution
+$\pi$ and we collect states $\left\{ X_{t}\right\} _{T_{eqm}<t<T}$
+as a sample on $S$ following probability distribution $\pi.$
+
+\begin{remark} There are three remarks when we implement Metropolis-Hasting
+Algorithm in practice.
+\begin{enumerate}
+\item Both probability distributions $q(x,\cdot)d\mu(\cdot)$ and $\pi(\cdot)$
+are not necessarily to be normalized, that we do not require $\int_{y\in S}q(x,y)d\mu(y)$
+and $\pi(S)=\int_{y\in S}f(y)dy$ equals to $1.$ Especially the normalizing
+constant to normalize $q(x,\cdot)$ or $\pi(\cdot)$ are unknown in
+some cases. 
+\item The transition kernel density $q(x,y)$ is not necessarily to be symmetric,
+i.e. $q(x,y)=q(y,x).$ 
+\item If the initial state $X_{0}$ we start at has $f(X_{0})=0,$ then
+the update in Step 4 becomes invalid as the denominator of Eq. \ref{eq:2.2}
+becomes zero.
+\end{enumerate}
+\end{remark}
+
+INFORMALLY, the transition kernel density in the Markov chain of the
+Metropolis-Hasting Algorithm can be written as 
+
+\begin{equation}
+p(x,y)=q(x,y)\alpha(x,y)+r(x)\delta_{x}(y)\label{eq:2.1}
+\end{equation}
+where $\delta_{x}(y)dy$ is a Dirac measure, i.e.
+
+\[
+\int_{y\in A}f(y)\delta_{x}(y)dy=\begin{cases}
+f(x) & \textrm{if }x\in A\\
+0 & \textrm{otherwise}
+\end{cases}
+\]
+
+
+and 
+\[
+r(x)=1-\int_{y\in S}q(x,y)\alpha(x,y)d\mu(y).
+\]
+
+
+The first term on R.H.S. in Eq. \ref{eq:2.1} stands for the probability
+of all accepted move from a state $x$ to a state $y$ $(X_{t+1}$is
+updated as $Y$) while the second term on R.H.S. in Eq. \ref{eq:2.1}
+stands for the probability of all unaccepted move from a state $x$
+to a state $y$ $(X_{t+1}$ is updated as $X_{t}$).
+
+
+\section{Simulated Annealing \label{sec.3}}
+
+One application of Metropolis-Hasting Algorithm is to search for an
+optimal point( global minimum/ global maximum) point of a function.
+The function needs not to be continuous. Suppose $S$ is a sample
+spaces of states (it can be a high dimensional space) and $E:S\rightarrow\mathbb{R}$
+is an objective function. Let's say we search for the global minimum
+point of $E.$ The main idea of simulated annealing is to find a probability
+distribution $\pi$ on $S$ such that $\pi$ is extremely large at
+the global minimum point and almost zero elsewhere. Then, we apply
+Metropolis-Hasting to generate a Markov chain whose states follows
+the probability distribution $\pi$ at the very end. In other words,
+the last state in the Markov chain is very close to the global minimum
+point. One common example to construct such a probability distribution
+$\pi$ is 
+\begin{equation}
+f(x)=\exp\left(-E\left(x\right)\right).\label{eq.3.1}
+\end{equation}
+where $f$ is the density function corresponding to $\pi$, i.e. $\pi(d\mu)=fd\mu(x).$
+However, in order to increase the ability to get rid of local minimum
+point and stabilize the convergence of states in the Markov chain,
+we also introduce another parameter, temperature $\mathscr{T}$ to
+Eq. \ref{eq.3.1} and the probability distribution becomes 
+\[
+\pi(x)=\exp(-\frac{E(x)}{\mathscr{T}})
+\]
+where $\mathscr{T}$ decreases slowly along steps in the Markov chain.
+
+Let $\left\{ X_{t}\right\} $ be a Markov chain in simulated annealing
+algorithm for minimizing $E:S\rightarrow\mathbb{R}.$ The simulated
+annealing algorithm is as follows: 
+\begin{enumerate}
+\item For $t=0$, pick an initial state $X_{0}=s_{0}\in S$ and initialize
+both the last step $T$ and the temperature $\mathscr{\mathscr{T}=T_{0}}$
+to be a large positive number. 
+\item Generate a candidate $Y$ follows from the probability distribution
+$q(X_{t},\cdot)$ 
+\item Generate a random number $\beta$ following a uniform distribution
+between $0$ and $1$ 
+\item Update the state $X_{t+1}$as $\begin{cases}
+Y & \textrm{if }\alpha(X_{t},Y)>\beta\\
+X_{t} & \textrm{otherwise}
+\end{cases}$ where 
+\[
+\alpha(x,y):=min\left\{ \exp(-\frac{E(y)-E(x)}{\mathscr{T}})\frac{q\left(y,x\right)}{q\left(x,y\right)},1\right\} .
+\]
+
+\item $t\leftarrow t+1$ and $\mathscr{T}\leftarrow\mathscr{T_{0}}(0.5^{\frac{t}{1000}})$
+and go to Step 2 until $t>T.$ 
+\end{enumerate}
+The last state $X_{T}$ should be very close to the global minimum
+point of the function $E.$ There is a remark of the simulated annealing
+algorithm.
+
+\begin{remark}There are two remarks about the simulated annealing
+algorithm
+\begin{enumerate}
+\item In the step 2 of the algorithm, without further information, we have
+no ideas which direction a state should move so it can get closer
+to the global minimum point. Therefore, all proposed directions in
+the step 2 should be equally likely. Hence, the transition kernel
+$q$ should be symmetric, i.e.$q$$\left(x,y\right)=q\left(y,x\right).$
+Common examples of such a $q(x,y)$ is a Gaussian distribution, random
+walk or a uniform distribution. Furthermore, if $q(\cdot,\cdot)$
+is symmetric, then $\alpha(x,y)=min\left\{ \exp(-\frac{E(y)-E(x)}{\mathscr{T}}),1\right\} $.
+\item The update formular of temperature $\mathscr{T}$ in the step 5 means
+$\mathscr{T}$ decreases by half in every $1000$ iteration.
+\end{enumerate}
+\end{remark} 
+
+\bibliographystyle{plainnat}
+\bibliography{monteCarlo}
+
+\end{document}
